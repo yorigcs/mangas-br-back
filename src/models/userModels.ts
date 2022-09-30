@@ -10,7 +10,7 @@ export interface User {
   updated_at: Date
 }
 
-export interface InserUserData {
+export interface InsertUserData {
   name: string
   email: string
   password: string

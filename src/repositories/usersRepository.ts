@@ -1,4 +1,4 @@
-import { User, InserUserData } from '../models/userModels'
+import { User, InsertUserData } from '../models/userModels'
 import { prisma } from '../database/prisma'
 
 export const findUserById = async (id: string): Promise<User> => {
@@ -21,6 +21,6 @@ export const findAllAdmins = async (): Promise<User[]> => {
   return await prisma.user.findMany({ where: { is_admin: true } })
 }
 
-export const createUser = async (insertData: InserUserData): Promise<User> => {
+export const createUser = async (insertData: InsertUserData): Promise<User> => {
   return await prisma.user.create({ data: insertData })
 }

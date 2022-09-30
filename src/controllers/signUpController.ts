@@ -1,13 +1,13 @@
 import { Request, Response } from 'express'
 import { createUserService } from '../services/usersService'
 
-import { InserUserData } from '../models/userModels'
+import { InsertUserData } from '../models/userModels'
 interface RequestUser extends Request {
-  body: InserUserData
+  body: InsertUserData
 }
 
 export const signUpController = async (req: RequestUser, res: Response): Promise<void> => {
-  const userData = req.body
-  const user = await createUserService(userData)
+  const { name, email, password } = req.body
+  const user = await createUserService({ name, email, password })
   res.status(201).send(user)
 }
