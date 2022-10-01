@@ -15,3 +15,8 @@ export interface InsertUserData {
   email: string
   password: string
 }
+
+export interface LoginUserData {
+  email: string
+  password: string
+}
