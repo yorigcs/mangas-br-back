@@ -1,7 +1,7 @@
-import { ConflictError } from '../errors/conflictError'
-import { createUser, findUserByEmail } from '../repositories/usersRepository'
-import { InsertUserData } from '../models/userModels'
-import { hash } from '../utils/bcryptAdapter'
+import { ConflictError } from '../../errors/conflictError'
+import { createUser, findUserByEmail } from '../../repositories/usersRepository'
+import { InsertUserData } from '../../models/userModels'
+import { hash } from '../../utils/bcryptAdapter'
 
 export const createUserService = async (data: InsertUserData): Promise<any> => {
   const user = await findUserByEmail(data.email)

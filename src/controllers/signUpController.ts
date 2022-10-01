@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { createUserService } from '../services/usersService'
+import { createUserService } from '../services/users/userCreateService'
 
 import { InsertUserData } from '../models/userModels'
 interface RequestUser extends Request {
