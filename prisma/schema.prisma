@@ -5,6 +5,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -25,4 +29,74 @@ model User {
   updated_at DateTime @updatedAt
 
   @@map("users")
+}
+
+model Manga {
+  id            String @id @default(uuid())
+  cover_picture String
+  name          String @unique
+  description   String
+  author        String
+  posted_by     String
+
+  followed_by Int
+  status      String
+  rating      Float
+
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+  GenreManga GenreManga[]
+  Chapter    Chapter[]
+
+  @@map("mangas")
+}
+
+model Genre {
+  id         String       @id @default(uuid())
+  name       String       @unique
+  GenreManga GenreManga[]
+
+  @@map("genres")
+}
+
+model GenreManga {
+  id String @id @default(uuid())
+
+  manga_id String
+  genre_id String
+
+  manga Manga @relation(fields: [manga_id], references: [id])
+  genre Genre @relation(fields: [genre_id], references: [id])
+
+  @@map("genre_mangas")
+}
+
+model Chapter {
+  id     String @id @default(uuid())
+  name   String
+  season String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  manga_id String
+
+  manga Manga  @relation(fields: [manga_id], references: [id])
+  Page  Page[]
+
+  @@map("chapters")
+}
+
+model Page {
+  id   String @id @default(uuid())
+  name String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  chapter_id String
+
+  chapter Chapter @relation(fields: [chapter_id], references: [id])
+
+  @@map("pages")
 }
