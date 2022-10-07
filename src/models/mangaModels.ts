@@ -18,7 +18,4 @@ export interface MangaData {
   description: string
   author: string
   posted_by: string
-  genres: string[]
 }
-
-export type InsertMangaData = Omit<MangaData, 'genres'>
