@@ -24,3 +24,9 @@ export interface MangaGenreData {
   mangaId: string
   genres: string[]
 }
+
+export interface GenreManga {
+  id: string
+  manga_id: string
+  genre_id: string
+}
