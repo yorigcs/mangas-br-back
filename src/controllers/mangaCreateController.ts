@@ -8,6 +8,6 @@ interface RequestUser extends Request {
 }
 
 export const mangaCreateController = async (req: RequestUser, res: Response): Promise<void> => {
-  const manga = await createMangaService(req.body)
+  const manga = await createMangaService(req.body, res.locals.id)
   res.status(201).send(manga)
 }
