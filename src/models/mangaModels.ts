@@ -19,3 +19,8 @@ export interface MangaData {
   author: string
   posted_by: string
 }
+
+export interface MangaGenreData {
+  mangaId: string
+  genres: string[]
+}
