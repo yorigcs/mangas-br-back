@@ -90,9 +90,10 @@ model Chapter {
 }
 
 model Page {
-  id   String @id @default(uuid())
-  name String
-
+  id         String   @id @default(uuid())
+  name       String
+  page_img   String
+  page_num   Int      @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
