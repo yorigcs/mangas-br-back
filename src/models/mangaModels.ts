@@ -5,14 +5,14 @@ export interface Manga {
   description: string
   author: string
   posted_by: string
-  followed_by: number
-  status: string
-  rating: number
+  followed_by: number | null
+  status: string | null
+  rating: number | null
   created_at: Date
   updated_at: Date
 }
 
-export interface InsertMangaData {
+export interface MangaData {
   name: string
   cover_picture: string
   description: string
@@ -20,3 +20,5 @@ export interface InsertMangaData {
   posted_by: string
   genres: string[]
 }
+
+export type InsertMangaData = Omit<MangaData, 'genres'>

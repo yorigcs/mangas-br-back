@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 import { createMangaService } from '../services/mangas/mangaCreateService'
 
-import { InsertMangaData } from '../models/mangaModels'
+import { MangaData } from '../models/mangaModels'
 
 interface RequestUser extends Request {
-  body: InsertMangaData
+  body: MangaData
 }
 
 export const mangaCreateController = async (req: RequestUser, res: Response): Promise<void> => {
