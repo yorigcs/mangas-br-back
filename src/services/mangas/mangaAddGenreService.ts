@@ -1,11 +1,13 @@
 import { findMangaById } from '../../repositories/mangasRepository'
 import { findUserById } from '../../repositories/usersRepository'
-import { ForbiddenError } from '../../errors/forbiddenError'
-import { MangaGenreData } from '../../models/mangaModels'
-import { NotFoundError } from '@prisma/client/runtime'
 import { findGenresByName } from '../../repositories/genresRepository'
-import { findGenreMangaByMangaIdAndGenreId } from '../../repositories/mangasGenresRepository'
+import { createGenreManga, findGenreMangaByMangaIdAndGenreId } from '../../repositories/mangasGenresRepository'
+
+import { MangaGenreData } from '../../models/mangaModels'
+
+import { ForbiddenError } from '../../errors/forbiddenError'
 import { ConflictError } from '../../errors/conflictError'
+import { NotFoundError } from '../../errors/notFoundError'
 
 export const mangaAddGenreService = async (data: MangaGenreData, userId: string): Promise<any> => {
   const user = await findUserById(userId)
@@ -19,5 +21,6 @@ export const mangaAddGenreService = async (data: MangaGenreData, userId: string)
     if (!getGenre) throw new NotFoundError(`O gênero "${genre}" não existe!`)
     const getMangaGenre = await findGenreMangaByMangaIdAndGenreId(data.mangaId, getGenre.id)
     if (getMangaGenre) throw new ConflictError(`Este manga já possuí o gênero "${genre}".`)
+    await createGenreManga(data.mangaId, getGenre.id)
   }
 }
