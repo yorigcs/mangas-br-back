@@ -72,9 +72,10 @@ model GenreManga {
 }
 
 model Chapter {
-  id     String @id @default(uuid())
-  name   String
-  season String
+  id          String @id @default(uuid())
+  name        String
+  season      Int
+  chapter_num Int
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -84,6 +85,7 @@ model Chapter {
   manga Manga  @relation(fields: [manga_id], references: [id])
   Page  Page[]
 
+  @@unique([season, chapter_num])
   @@map("chapters")
 }
 
