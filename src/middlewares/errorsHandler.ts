@@ -1,3 +1,4 @@
+import { NotFoundError } from '@prisma/client/runtime'
 import { Request, Response, NextFunction } from 'express'
 import { ConflictError } from '../errors/conflictError'
 import { ForbiddenError } from '../errors/forbiddenError'
@@ -7,5 +8,6 @@ export const errorsHandler = (err: Error, _req: Request, res: Response, next: Ne
   if (err instanceof ConflictError) return res.status(409).json({ error: err.message })
   else if (err instanceof UnauthorizedError) return res.status(401).json({ error: err.message })
   else if (err instanceof ForbiddenError) return res.status(403).json({ error: err.message })
+  else if (err instanceof NotFoundError) return res.status(404).json({ error: err.message })
   return res.status(500).json({ error: 'Ocorreu um erro interno, tente novamente mais tarde!' })
 }
