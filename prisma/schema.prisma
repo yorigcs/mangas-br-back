@@ -39,9 +39,9 @@ model Manga {
   author        String
   posted_by     String
 
-  followed_by Int
-  status      String
-  rating      Float
+  followed_by Int?   @default(0)
+  status      Status @default(ongoing)
+  rating      Float?
 
   created_at DateTime     @default(now())
   updated_at DateTime     @updatedAt
@@ -99,4 +99,10 @@ model Page {
   chapter Chapter @relation(fields: [chapter_id], references: [id])
 
   @@map("pages")
+}
+
+enum Status {
+  ongoing
+  paused
+  dropped
 }
