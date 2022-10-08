@@ -11,7 +11,15 @@ export const createMangaService = async (data: MangaData, userId: string): Promi
   const manga = await findMangaByName(data.name)
   if (manga) throw new ConflictError('Este manga já está cadastrado!')
 
-  const mangaCreation = await createManga(data)
+  const mangaCreation = await createManga(
+    {
+      name: data.name,
+      author: data.author,
+      cover_picture: data.coverPicture,
+      description: data.description,
+      posted_by: user.name
+    }
+  )
 
   return mangaCreation
 }
