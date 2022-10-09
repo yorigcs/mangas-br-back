@@ -11,6 +11,13 @@ export interface Chapter {
 export interface ChapterData {
   name: string
   season: number
+  chapterNum: number
+  mangaId: string
+}
+
+export interface InsertChapterData {
+  name: string
+  season: number
   chapter_num: number
   manga_id: string
 }

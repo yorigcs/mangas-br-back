@@ -1,7 +1,7 @@
-import { Chapter, ChapterData } from '../models/chapterModels'
+import { Chapter, InsertChapterData } from '../models/chapterModels'
 import { prisma } from '../database/prisma'
 
-export const createChapter = async (insertData: ChapterData): Promise<Chapter> => {
+export const createChapter = async (insertData: InsertChapterData): Promise<Chapter> => {
   return await prisma.chapter.create({ data: insertData })
 }
 

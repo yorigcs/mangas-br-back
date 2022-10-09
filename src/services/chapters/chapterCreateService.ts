@@ -11,13 +11,20 @@ export const chapterCreateService = async (data: ChapterData, userId: string): P
   const user = await findUserById(userId)
   if (!user?.is_admin) throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
 
-  const manga = await findMangaById(data.manga_id)
+  const manga = await findMangaById(data.mangaId)
   if (!manga) throw new NotFoundError('Este manga não existe!')
 
-  const chapter = await findChapterBySeasonAndChapterNum(data.season, data.chapter_num)
+  const chapter = await findChapterBySeasonAndChapterNum(data.season, data.chapterNum)
   if (chapter) throw new ConflictError('Este capítulo já existe nessa temporada!')
 
-  const createdChapter = await createChapter(data)
-  await updateManga(data.manga_id)
+  const createdChapter = await createChapter(
+    {
+      name: data.name,
+      chapter_num: data.chapterNum,
+      manga_id: data.mangaId,
+      season: data.season
+    }
+  )
+  await updateManga(data.mangaId)
   return createdChapter
 }
