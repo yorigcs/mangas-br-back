@@ -1,4 +1,4 @@
-import { findMangaById } from '../../repositories/mangasRepository'
+import { findMangaById, updateManga } from '../../repositories/mangasRepository'
 import { findUserById } from '../../repositories/usersRepository'
 
 import { ForbiddenError } from '../../errors/forbiddenError'
@@ -17,5 +17,7 @@ export const chapterCreateService = async (data: ChapterData, userId: string): P
   const chapter = await findChapterBySeasonAndChapterNum(data.season, data.chapter_num)
   if (chapter) throw new ConflictError('Este capítulo já existe nessa temporada!')
 
-  return await createChapter(data)
+  const createdChapter = await createChapter(data)
+  await updateManga(data.manga_id)
+  return createdChapter
 }
