@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { getAllMangasController } from '../controllers/getAllMangasController'
 import { getAllMangasWithChaptersController } from '../controllers/getAllMangasWithChaptersController'
 import { mangaAddGenreController } from '../controllers/mangaAddGenreController'
 import { mangaCreateController } from '../controllers/mangaCreateController'
@@ -12,4 +13,5 @@ export default (router: Router): void => {
   router.post('/create-manga', authValidation, bodyValidation(createMangaSchema), mangaCreateController)
   router.post('/add-genre-to-manga', authValidation, bodyValidation(genreSchema), mangaAddGenreController)
   router.get('/mangas-with-chapters', getAllMangasWithChaptersController)
+  router.get('/all-mangas', getAllMangasController)
 }

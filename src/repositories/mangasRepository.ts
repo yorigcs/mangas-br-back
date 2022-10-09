@@ -13,6 +13,13 @@ export const createManga = async (insertData: InsertMangaData): Promise<Manga> =
   return await prisma.manga.create({ data: insertData })
 }
 
+export const updateManga = async (id: string): Promise<Manga> => {
+  return await prisma.manga.update({
+    where: { id },
+    data: { updated_at: new Date().toISOString() }
+  })
+}
+
 export const getAllMangasWithChapters = async (): Promise<any> => {
   return await prisma.manga.findMany(
     {
@@ -27,6 +34,25 @@ export const getAllMangasWithChapters = async (): Promise<any> => {
             }
           ]
         },
+        GenreManga: {
+          select: {
+            genre_id: true,
+            genre: {
+              select: {
+                name: true
+              }
+            }
+          }
+        }
+      }
+    }
+  )
+}
+
+export const getAllMangas = async (): Promise<any> => {
+  return await prisma.manga.findMany(
+    {
+      include: {
         GenreManga: {
           select: {
             genre_id: true,
