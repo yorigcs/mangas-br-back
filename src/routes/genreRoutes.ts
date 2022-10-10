@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { getAllGenresController } from '../controllers/getAllGenresController'
+import * as genre from '../controllers/genresController'
 
 export default (router: Router): void => {
-  router.get('/get-all-genres', getAllGenresController)
+  router.get('/get-all-genres', genre.findGenres)
 }

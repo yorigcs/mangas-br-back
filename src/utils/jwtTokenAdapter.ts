@@ -13,11 +13,11 @@ interface Decoded {
 
 }
 
-export const createToken = (id: string): string => {
+const createToken = (id: string): string => {
   return jwt.sign({ id }, SECRET, { expiresIn: EXPIRES_IN })
 }
 
-export const verifyToken = (token: string): Decoded => {
+const verifyToken = (token: string): Decoded => {
   try {
     const decoded = jwt.verify(token, SECRET) as Decoded
     return decoded
@@ -25,3 +25,5 @@ export const verifyToken = (token: string): Decoded => {
     return null
   }
 }
+
+export { createToken, verifyToken }
