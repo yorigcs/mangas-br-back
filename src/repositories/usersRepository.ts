@@ -13,15 +13,7 @@ const findAllUsers = async (): Promise<User[]> => {
   return await prisma.user.findMany()
 }
 
-const findAllModerators = async (): Promise<User[]> => {
-  return await prisma.user.findMany({ where: { is_moderator: true } })
-}
-
-const findAllAdmins = async (): Promise<User[]> => {
-  return await prisma.user.findMany({ where: { is_admin: true } })
-}
-
 const createUser = async (insertData: InsertUserData): Promise<User> => {
   return await prisma.user.create({ data: insertData })
 }
-export { findUserById, findUserByEmail, findAllUsers, findAllModerators, findAllAdmins, createUser }
+export { findUserById, findUserByEmail, findAllUsers, createUser }

@@ -23,8 +23,7 @@ model User {
 
   profile_picture String?
 
-  is_admin     Boolean @default(false)
-  is_moderator Boolean @default(false)
+  role Roles @default(user)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -109,4 +108,10 @@ enum Status {
   ongoing
   paused
   dropped
+}
+
+enum Roles {
+  admin
+  user
+  moderator
 }

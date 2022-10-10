@@ -10,7 +10,7 @@ import { NotFoundError } from '../errors/notFoundError'
 
 const pageCreate = async (data: PageData, userId: string): Promise<any> => {
   const user = await usersRepository.findUserById(userId)
-  if (!user?.is_admin) throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
+  if (user?.role !== 'admin') throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
 
   const chapter = await chaptersRepository.findChapterById(data.chapter_id)
   if (!chapter) throw new NotFoundError('Este capítulo não existe!')

@@ -1,11 +1,12 @@
+
+type Roles = 'admin' | 'user' | 'moderator'
 export interface User {
   id: string
   name: string
   email: string
   password: string
   profile_picture: string | null
-  is_admin: boolean
-  is_moderator: boolean
+  role: Roles
   created_at: Date
   updated_at: Date
 }

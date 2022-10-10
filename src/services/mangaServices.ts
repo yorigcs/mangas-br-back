@@ -11,7 +11,7 @@ import { NotFoundError } from '../errors/notFoundError'
 
 const mangaAddGenre = async (data: MangaGenreData, userId: string): Promise<any> => {
   const user = await usersRepository.findUserById(userId)
-  if (!user?.is_admin) throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
+  if (user?.role !== 'admin') throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
 
   const manga = await mangaRepository.findMangaById(data.mangaId)
   if (!manga) throw new NotFoundError('Este manga não existe!')
@@ -35,7 +35,7 @@ const findAllMangas = async (): Promise<any> => {
 
 const createManga = async (data: MangaData, userId: string): Promise<any> => {
   const user = await usersRepository.findUserById(userId)
-  if (!user?.is_admin) throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
+  if (user?.role !== 'admin') throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
 
   const manga = await mangaRepository.findMangaByName(data.name)
   if (manga) throw new ConflictError('Este manga já está cadastrado!')

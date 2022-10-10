@@ -18,8 +18,6 @@ const createUser = async (data: InsertUserData): Promise<any> => {
   const {
     password,
     profile_picture: profilePicture,
-    is_admin: isAdmin,
-    is_moderator: isModerator,
     created_at: createdAt,
     updated_at: updatedAt
     , ...userData
@@ -39,8 +37,7 @@ const userLogin = async (data: LoginUserData): Promise<any> => {
       name: user.name,
       email: user.email,
       profilePicture: user.profile_picture,
-      isAdmin: user.is_admin,
-      isModerator: user.is_moderator
+      role: user.role
     },
     token
   }

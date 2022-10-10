@@ -10,7 +10,7 @@ import { ChapterData } from '../models/chapterModels'
 
 const chapterCreate = async (data: ChapterData, userId: string): Promise<any> => {
   const user = await usersRepository.findUserById(userId)
-  if (!user?.is_admin) throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
+  if (user?.role !== 'admin') throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
 
   const manga = await mangaRepository.findMangaById(data.mangaId)
   if (!manga) throw new NotFoundError('Este manga não existe!')
