@@ -4,15 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test": "dotenv -e .env.test -- jest --passWithNoTests --silent --noStackTrace -runInBand",
     "test:staged": "npm test --findRelatedTests",
-    "test:unit": "npm test -- --watch -c jest-unit-config.ts",
+    "test:unit": "npm test -- --watch --coverage -c jest-unit-config.ts",
     "seed": "prisma db seed ",
     "dev": "npx nodemon ./src/server.ts",
-    "start": "npx node ./dist/src/server.js",
-    "build": "tsc && npm run prisma:migrate && npm run seed && npm run start ",
+    "start": "node ./dist/src/server.js",
+    "build": "tsc && npm run prisma:migrate && npm run seed",
     "prisma:migrate": "npx prisma migrate deploy"
-
   },
   "keywords": [],
   "author": "",
@@ -24,6 +23,7 @@
     "@types/jest": "^29.0.3",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.7.23",
+    "dotenv-cli": "^6.0.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
     "git-commit-msg-linter": "^4.2.1",
     "husky": "^8.0.1",
@@ -32,6 +32,7 @@
     "nodemon": "^2.0.20",
     "prisma": "^4.4.0",
     "prisma-erd-generator": "^1.2.1",
+    "supertest": "^6.3.0",
     "ts-jest": "^29.0.2",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
