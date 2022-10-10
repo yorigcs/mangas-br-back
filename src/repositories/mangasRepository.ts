@@ -23,6 +23,7 @@ export const updateManga = async (id: string): Promise<Manga> => {
 export const getAllMangasWithChapters = async (): Promise<any> => {
   return await prisma.manga.findMany(
     {
+      orderBy: { updated_at: 'desc' },
       include: {
         Chapter: {
           orderBy: [
