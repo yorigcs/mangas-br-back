@@ -5,8 +5,8 @@ const createChapter = async (insertData: InsertChapterData): Promise<Chapter> =>
   return await prisma.chapter.create({ data: insertData })
 }
 
-const findChapterBySeasonAndChapterNum = async (season: number, chapterNum: number): Promise<Chapter> => {
-  return await prisma.chapter.findFirst({ where: { AND: [{ season }, { chapter_num: chapterNum }] } })
+const findChapterBySeasonAndChapterNum = async (chapterNum: number): Promise<Chapter> => {
+  return await prisma.chapter.findFirst({ where: { chapter_num: chapterNum } })
 }
 
 const findChapterById = async (id: string): Promise<Chapter> => {
