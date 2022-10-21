@@ -14,7 +14,6 @@ export interface Manga {
 
 export interface MangaData {
   name: string
-  coverPicture: string
   description: string
   author: string
 }
