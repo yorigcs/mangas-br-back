@@ -2,10 +2,14 @@ import multer from 'multer'
 import { Request, Response, NextFunction } from 'express'
 import path from 'path'
 import crypto from 'crypto'
+import { checkDir } from '../utils/checkDir'
+
+const dest = path.join(__dirname, '../public/uploads/temp')
 
 const storage = multer.diskStorage({
   destination: function (_req, file, cb) {
-    cb(null, path.join(__dirname, '../public/uploads/temp'))
+    checkDir(dest)
+    cb(null, dest)
   },
   filename: function (_req, file, cb) {
     crypto.randomBytes(16, (err, hash) => {
