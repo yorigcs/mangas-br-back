@@ -4,10 +4,13 @@ import * as genreRepository from '../repositories/genresRepository'
 import * as mangasGenresRepository from '../repositories/mangasGenresRepository'
 
 import { MangaGenreData, MangaData } from '../models/mangaModels'
+import { Files } from '../models/files'
 
 import { ForbiddenError } from '../errors/forbiddenError'
 import { ConflictError } from '../errors/conflictError'
 import { NotFoundError } from '../errors/notFoundError'
+
+import { handleSaveFiles } from '../utils/handleSaveFiles'
 
 const mangaAddGenre = async (data: MangaGenreData, userId: string): Promise<any> => {
   const user = await usersRepository.findUserById(userId)
@@ -33,18 +36,20 @@ const findAllMangas = async (): Promise<any> => {
   return await mangaRepository.findAllMangas()
 }
 
-const createManga = async (data: MangaData, userId: string): Promise<any> => {
+const createManga = async (data: MangaData, userId: string, files: Files): Promise<any> => {
   const user = await usersRepository.findUserById(userId)
   if (user?.role !== 'admin') throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
 
   const manga = await mangaRepository.findMangaByName(data.name)
   if (manga) throw new ConflictError('Este manga já está cadastrado!')
 
+  const url = await handleSaveFiles(`${data.name.split(' ').join('-').toLowerCase()}`, files)
+
   const mangaCreation = await mangaRepository.createManga(
     {
       name: data.name,
       author: data.author,
-      cover_picture: data.coverPicture,
+      cover_picture: url[0],
       description: data.description,
       posted_by: user.name
     }
