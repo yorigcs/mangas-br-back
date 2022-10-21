@@ -4,6 +4,8 @@ import * as mangaServices from '../services/mangaServices'
 
 import { MangaData, MangaGenreData } from '../models/mangaModels'
 
+import { Files } from '../models/files'
+
 interface RequestUserCreateManga extends Request {
   body: MangaData
 }
@@ -13,8 +15,8 @@ interface RequestUserAddGenreToManga extends Request {
 }
 
 const createManga = async (req: RequestUserCreateManga, res: Response): Promise<void> => {
-  const manga = await mangaServices.createManga(req.body, res.locals.id)
-  res.status(201).send(manga)
+  await mangaServices.createManga(req.body, res.locals.id, req.files as Files)
+  res.status(201).send('Manga criado com sucesso!')
 }
 
 const addGenreToManga = async (req: RequestUserAddGenreToManga, res: Response): Promise<void> => {
