@@ -28,9 +28,6 @@ const findAllMangasWithChapters = async (): Promise<any> => {
         Chapter: {
           orderBy: [
             {
-              season: 'desc'
-            },
-            {
               chapter_num: 'desc'
             }
           ]
