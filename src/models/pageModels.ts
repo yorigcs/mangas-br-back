@@ -17,6 +17,5 @@ export interface InsertPageData {
 }
 
 export interface PageData {
-  page_img: string[]
   chapter_id: string
 }
