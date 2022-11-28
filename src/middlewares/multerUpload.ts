@@ -1,4 +1,4 @@
-import multer from 'multer'
+import multer, { FileFilterCallback } from 'multer'
 import { Request, Response, NextFunction } from 'express'
 import path from 'path'
 import crypto from 'crypto'
@@ -27,29 +27,29 @@ const storage = multer.diskStorage({
   }
 })
 
-const upload = multer(
-  {
-    storage,
-    fileFilter: (req, file, cb) => {
-      if (!whiteList.includes(file.mimetype)) {
-        return cb(new Error('Apenas imagens são permitidas!'))
-      }
-      cb(null, true)
+const config = {
+  storage,
+  fileFilter: (_req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+    if (!whiteList.includes(file.mimetype)) {
+      return cb(new Error('Apenas imagens nos formatos png,jpeg e jpg são permitidas!'))
     }
+    cb(null, true)
   }
-)
-  .array('images', 100)
+}
 
-export const multerUpload = (req: Request, res: Response, next: NextFunction): void => {
-  upload(req, res, (err: any): any => {
-    if (err instanceof multer.MulterError) {
-      return res.status(400).send(err.message)
-    } else if (!req.files) {
-      return res.status(400).send('Você deve enviar pelo menos uma imagem!')
-    } else if (err) {
-      return res.status(400).send(err.message)
-    } else {
-      return next()
-    }
-  })
+export const multerUpload = (filesMax = 1): any => {
+  const upload = multer(config).array('images', filesMax)
+  return (req: Request, res: Response, next: NextFunction) => {
+    upload(req, res, (err: any): any => {
+      if (err instanceof multer.MulterError) {
+        return res.status(400).json({ error: err.message })
+      } else if (!req.files) {
+        return res.status(400).json({ error: 'Você deve enviar pelo menos uma imagem!' })
+      } else if (err) {
+        return res.status(400).json({ error: err.message })
+      } else {
+        return next()
+      }
+    })
+  }
 }
