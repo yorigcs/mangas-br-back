@@ -15,8 +15,8 @@ const chapterCreate = async (data: ChapterData, userId: string): Promise<any> =>
   const manga = await mangaRepository.findMangaById(data.mangaId)
   if (!manga) throw new NotFoundError('Este manga não existe!')
 
-  const chapter = await chapterRepository.findChapterBySeasonAndChapterNum(data.chapterNum)
-  if (chapter) throw new ConflictError('Este capítulo já existe nessa temporada!')
+  const chapter = await chapterRepository.findChapterByMangaIdAndChapterNum(data.chapterNum, data.mangaId)
+  if (chapter) throw new ConflictError('Este capítulo já existe nessa obra!')
 
   const createdChapter = await chapterRepository.createChapter(
     {

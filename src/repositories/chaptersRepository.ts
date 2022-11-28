@@ -5,12 +5,12 @@ const createChapter = async (insertData: InsertChapterData): Promise<Chapter> =>
   return await prisma.chapter.create({ data: insertData })
 }
 
-const findChapterBySeasonAndChapterNum = async (chapterNum: number): Promise<Chapter> => {
-  return await prisma.chapter.findFirst({ where: { chapter_num: chapterNum } })
+const findChapterByMangaIdAndChapterNum = async (chapterNum: number, mangaId: string): Promise<Chapter> => {
+  return await prisma.chapter.findFirst({ where: { chapter_num: chapterNum, manga_id: mangaId } })
 }
 
 const findChapterById = async (id: string): Promise<Chapter> => {
   return await prisma.chapter.findFirst({ where: { id } })
 }
 
-export { createChapter, findChapterBySeasonAndChapterNum, findChapterById }
+export { createChapter, findChapterByMangaIdAndChapterNum, findChapterById }
