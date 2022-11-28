@@ -18,8 +18,8 @@ const signIn = async (req: RequestUserSignIn, res: Response): Promise<void> => {
 
 const signUp = async (req: RequestUserSignUp, res: Response): Promise<void> => {
   const { name, email, password } = req.body
-  const user = await userServices.createUser({ name, email, password })
-  res.status(201).send(user)
+  await userServices.createUser({ name, email, password })
+  res.status(201).send('Usuário cadastrado com sucesso')
 }
 
 export { signIn, signUp }
