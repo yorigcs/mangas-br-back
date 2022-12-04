@@ -92,7 +92,7 @@ model Page {
   id         String   @id @default(uuid())
   name       String
   page_img   String
-  page_num   Int      @unique
+  page_num   Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -100,6 +100,7 @@ model Page {
 
   chapter Chapter @relation(fields: [chapter_id], references: [id])
 
+  @@unique([page_num, chapter_id])
   @@map("pages")
 }
 
