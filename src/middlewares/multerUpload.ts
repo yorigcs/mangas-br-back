@@ -4,7 +4,7 @@ import path from 'path'
 import crypto from 'crypto'
 import { checkDir } from '../utils/checkDir'
 
-const dest = path.join(__dirname, '../public/uploads/temp')
+const dest = path.join(__dirname, '../public/temp')
 
 const whiteList = [
   'image/png',
