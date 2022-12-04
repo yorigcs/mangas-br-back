@@ -43,7 +43,7 @@ const createManga = async (data: MangaData, userId: string, files: Files): Promi
   const manga = await mangaRepository.findMangaByName(data.name)
   if (manga) throw new ConflictError('Este manga já está cadastrado!')
 
-  const url = await handleSaveFiles(`${data.name.split(' ').join('-').toLowerCase()}`, files)
+  const url = await handleSaveFiles(`mangas/${data.name.split(' ').join('-').toLowerCase()}`, files)
 
   const mangaCreation = await mangaRepository.createManga(
     {

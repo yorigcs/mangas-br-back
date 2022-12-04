@@ -22,10 +22,10 @@ const pageCreate = async (data: PageData, userId: string, files: Files): Promise
 
   for (let i = 0; i < files.length; i++) {
     const page = await pagesRepository.findPageByPageNumAndChapterId(i + 1, data.chapter_id)
-    if (page) throw new ConflictError(`A página ${1 + i} já existe nesse capítulo!`)
+    if (page) throw new ConflictError('Este capítulo já possui páginas')
   }
 
-  const urls = await handleSaveFiles(`${manga.name.split(' ').join('-').toLowerCase()}/chapter-${chapter.chapter_num}`, files)
+  const urls = await handleSaveFiles(`mangas/${manga.name.split(' ').join('-').toLowerCase()}/chapter-${chapter.chapter_num}`, files)
 
   for (let i = 0; i < urls.length; i++) {
     await pagesRepository.createPage(
