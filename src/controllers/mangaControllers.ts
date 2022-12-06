@@ -14,6 +14,10 @@ interface RequestUserAddGenreToManga extends Request {
   body: MangaGenreData
 }
 
+interface RequestFindMangaWithChaptersByName extends Request {
+  params: { mangaName: string }
+}
+
 const createManga = async (req: RequestUserCreateManga, res: Response): Promise<void> => {
   await mangaServices.createManga(req.body, res.locals.id, req.files as Files)
   res.status(201).send('Manga criado com sucesso!')
@@ -34,4 +38,10 @@ const findMangasWithChapter = async (req: Request, res: Response): Promise<void>
   res.status(200).send(mangasWithChapter)
 }
 
-export { createManga, addGenreToManga, findMangasWithCategory, findMangasWithChapter }
+const findMangaWithChaptersByName = async (req: RequestFindMangaWithChaptersByName, res: Response): Promise<void> => {
+  const { mangaName } = req.params
+  const mangasWithChapter = await mangaServices.findMangaWithChaptersByName(mangaName)
+  res.status(200).send(mangasWithChapter)
+}
+
+export { createManga, addGenreToManga, findMangasWithCategory, findMangasWithChapter, findMangaWithChaptersByName }
