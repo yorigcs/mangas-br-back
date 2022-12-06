@@ -13,4 +13,5 @@ export default (router: Router): void => {
   router.post('/add-genre-to-manga', authValidation, bodyValidation(genreSchema), manga.addGenreToManga)
   router.get('/mangas-with-chapters', manga.findMangasWithChapter)
   router.get('/all-mangas', manga.findMangasWithCategory)
+  router.get('/manga-with-chapters/:mangaName', manga.findMangaWithChaptersByName)
 }
