@@ -47,6 +47,33 @@ const findAllMangasWithChapters = async (): Promise<any> => {
   )
 }
 
+const findMangaWithChaptersByName = async (mangaName: string): Promise<any> => {
+  return await prisma.manga.findFirst(
+    {
+      where: { name: { equals: mangaName, mode: 'insensitive' } },
+      include: {
+        Chapter: {
+          orderBy: [
+            {
+              chapter_num: 'desc'
+            }
+          ]
+        },
+        GenreManga: {
+          select: {
+            genre_id: true,
+            genre: {
+              select: {
+                name: true
+              }
+            }
+          }
+        }
+      }
+    }
+  )
+}
+
 const findAllMangas = async (): Promise<any> => {
   return await prisma.manga.findMany(
     {
@@ -66,4 +93,4 @@ const findAllMangas = async (): Promise<any> => {
   )
 }
 
-export { findMangaById, findMangaByName, createManga, updateManga, findAllMangasWithChapters, findAllMangas }
+export { findMangaById, findMangaByName, createManga, updateManga, findAllMangasWithChapters, findAllMangas, findMangaWithChaptersByName }
