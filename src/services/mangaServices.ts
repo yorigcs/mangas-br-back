@@ -36,6 +36,11 @@ const findAllMangas = async (): Promise<any> => {
   return await mangaRepository.findAllMangas()
 }
 
+const findMangaWithChaptersByName = async (name: string): Promise<any> => {
+  const mangaName = name.toLowerCase().split('-').join(' ')
+  return await mangaRepository.findMangaWithChaptersByName(mangaName)
+}
+
 const createManga = async (data: MangaData, userId: string, files: Files): Promise<any> => {
   const user = await usersRepository.findUserById(userId)
   if (user?.role !== 'admin') throw new ForbiddenError('Você não tem permissão para acessar essa rota!')
@@ -58,4 +63,4 @@ const createManga = async (data: MangaData, userId: string, files: Files): Promi
   return mangaCreation
 }
 
-export { mangaAddGenre, findAllMangasWithChapters, findAllMangas, createManga }
+export { mangaAddGenre, findAllMangasWithChapters, findAllMangas, createManga, findMangaWithChaptersByName }
