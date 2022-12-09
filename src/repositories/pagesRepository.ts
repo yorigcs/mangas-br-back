@@ -9,4 +9,8 @@ const findPageByPageNumAndChapterId = async (pageNum: number, chapterId: string)
   return await prisma.page.findFirst({ where: { AND: [{ page_num: pageNum }, { chapter_id: chapterId }] } })
 }
 
-export { createPage, findPageByPageNumAndChapterId }
+const findPagesByChapterId = async (chapterId: string): Promise<Page[]> => {
+  return await prisma.page.findMany({ where: { chapter_id: chapterId } })
+}
+
+export { createPage, findPageByPageNumAndChapterId, findPagesByChapterId }
