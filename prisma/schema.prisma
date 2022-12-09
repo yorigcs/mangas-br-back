@@ -73,7 +73,7 @@ model GenreManga {
 
 model Chapter {
   id          String @id @default(uuid())
-  name        String
+  name        String @unique
   price       Int?
   chapter_num Int    @unique
 
