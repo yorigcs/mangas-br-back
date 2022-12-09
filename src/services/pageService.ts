@@ -39,4 +39,14 @@ const pageCreate = async (data: PageData, userId: string, files: Files): Promise
   }
 }
 
-export { pageCreate }
+const findPagesByChapterId = async (chapterId: string): Promise<any> => {
+  const chapter = await chaptersRepository.findChapterById(chapterId)
+  if (!chapter) throw new NotFoundError('Este capítulo não existe!')
+
+  const pages = await pagesRepository.findPagesByChapterId(chapterId)
+  if (pages?.length === 0) throw new NotFoundError('Não existe paginas neste capítulo!')
+
+  return pages
+}
+
+export { pageCreate, findPagesByChapterId }
