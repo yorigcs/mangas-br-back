@@ -9,4 +9,5 @@ import { createPageSchema } from '../schemas/pageSchemas'
 
 export default (router: Router): void => {
   router.post('/create-page', authValidation, multerUpload(50), bodyValidation(createPageSchema), page.createPage)
+  router.get('/page-by-chapterId/:chapterId', page.findPagesByChapterId)
 }
