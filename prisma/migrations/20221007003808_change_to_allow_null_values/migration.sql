@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE "mangas" ALTER COLUMN "followed_by" DROP NOT NULL,
-ALTER COLUMN "status" DROP NOT NULL,
-ALTER COLUMN "rating" DROP NOT NULL;
